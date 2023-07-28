@@ -1,0 +1,155 @@
+.filter{
+  /* border: solid 1px red; */
+  width: 100%;
+  padding: 1%;
+  display: flex;
+  justify-content: center;
+  gap: 1%;
+}
+.filter select, button{
+  /* width: 50%; */
+  /* border: solid 1px yellow; */
+  padding: 0.7%;
+  border-radius: 10px;
+}
+
+/* #First-div{
+  border: solid 1px black;
+} */
+
+
+.Home {
+  /* border: solid 1px red; */
+  width: 95%;
+  height: auto;
+  margin: auto;
+  margin-top: 15px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5,1fr);
+  gap: 1%;
+}
+
+.user_div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 10px;
+}
+
+.user_div > .img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user_div > .img > img {
+  /* height: 100%; */
+  width:35%;
+}
+
+.user_div > .text {
+  /* margin-left: 20px;
+  margin-top: 5px; */
+  text-align: center;
+  margin-top: 2%;
+}
+
+.user_div > .text > h4 {
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+#Second-div{
+  /* border: solid 1px yellow; */
+  margin-top: 8%;
+  margin-bottom: 2%;
+}
+
+.btns {
+  width: 55%;
+  /* height: auto; */
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  /* border: 1px solid red; */
+}
+
+.btns button{
+  width: 20%;
+  background-color: brown;
+  border-style: none;
+  padding: 1%;
+  cursor: pointer;
+}
+
+.btn_del_edit {
+  display: flex;
+  justify-content: space-around;
+  padding: 5%;
+}
+
+.btn_del_edit > button:nth-child(1) {
+  width: 30%;
+  padding: 2.5%;
+  background-color: green;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.btn_del_edit > button:nth-child(2) {
+  width: 30%;
+  padding: 2.5%;
+  background-color: red;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+
+@media all and (min-width:550px) and (max-width: 890px){
+
+  .Home {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(11,1fr);
+    gap: 1%;
+  }
+
+  .btns button{
+    width: 30%;
+    padding: 2%;
+  }
+}
+
+
+
+@media all and (max-width: 549px){
+
+  .filter{
+    width: 100%;
+    padding: 1%;
+    display: grid;
+    grid-template-columns: repeat(1,fr);
+    /* gap: 5%; */
+  }
+
+  .filter select, button{
+    margin: 2%;
+    padding: 1%;
+  }
+
+  .Home {
+    /* border: solid 1px red; */
+    width: 85%;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(21,1fr);
+    gap: 0.2%;
+  }
+
+  .btns button{
+    width: 40%;
+    padding: 3%;
+  }
+}

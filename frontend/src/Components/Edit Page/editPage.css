@@ -1,0 +1,71 @@
+.EditPage {
+  width: 50%;
+  margin: auto;
+  /* border: 1px solid red; */
+  margin-top: 20px;
+}
+
+.EditPage h1 {
+  text-align: center;
+}
+
+.input__fields {
+  width: 100%;
+  margin: auto;
+  /* border: 1px solid red; */
+  margin-top: 20px;
+  background-color: #cc8bf0;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  padding: 5%;
+}
+
+.input__fields div{
+  padding: 1%;
+}
+
+.input__fields div input{
+  display: block;
+  width: 70%;
+  margin: auto;
+  padding: 1.8%;
+  border-radius: 10px;
+  border-style: none;
+}
+
+.input__fields div select{
+  display: block;
+  width: 70%;
+  margin: auto;
+  padding: 1.8%;
+  border-radius: 10px;
+}
+
+.input__fields button{
+  display: block;
+  margin: auto;
+  margin-top: 15px;
+  width: 25%;
+  padding: 1.2%;
+  border-radius: 10px;
+  background-color: teal;
+  border-style: none;
+}
+
+@media all and (min-width:550px) and (max-width: 890px){
+
+  .EditPage {
+    width: 70%;
+   
+  }
+}
+
+
+
+@media all and (max-width: 549px){
+
+  .EditPage {
+    width: 90%;
+    
+  }
+}
