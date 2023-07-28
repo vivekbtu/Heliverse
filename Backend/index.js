@@ -1,13 +1,14 @@
 
 const express = require("express");
+const cors = require('cors');
 
 const {connection} = require("./config/db");
-const {userRouter} = require("./routes/user.route");
+const { userRouter } = require("./routes/users.route.js");
 
 require('dotenv').config();
 
 const app = express();
-
+app.use(cors())
 // middleware
 app.use(express.json());
 
@@ -15,26 +16,26 @@ app.get("/", (req,res) =>{
     res.send("Hello");
 })
 
-// const validator = (req,res, next) => {
+const validator = (req,res, next) => {
 
-//     if(req.method === "POST")
-//     {
-//         const obj = req.body;
+    if(req.method === "POST")
+    {
+        const obj = req.body;
 
-//         if(typeof obj.first_name === "string")
-//         {
-//             next();
-//         }
-//         else{
-//             res.send("Validation Failed");
-//         }
-//     }
-//     else{
-//         next();
-//     }
-// }
+        if(typeof obj.first_name === "string")
+        {
+            next();
+        }
+        else{
+            res.send("Validation Failed");
+        }
+    }
+    else{
+        next();
+    }
+}
 
-// app.use(validator);
+app.use(validator);
 
 app.use("/user", userRouter);
 

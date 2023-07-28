@@ -47,16 +47,16 @@ userRouter.get("/get-paginated", async (req, res) => {
 
 
 // post method
-// user/add-movie
+// user/add-user
 
-userRouter.post("/add-movie", async (req, res) => {
+userRouter.post("/add-user", async (req, res) => {
 
     const { first_name } = req.body;
 
     const userPresent = await Usermodel.findOne({ first_name });
 
     if (userPresent?.first_name) {
-        return res.status(400).json({ message: "Movie already exist" })
+        return res.status(400).json({ message: "User already exist" })
     }
 
     else {
@@ -80,13 +80,13 @@ userRouter.get('/get-single', async (req, res) => {
     const { id } = req.query;
 
     if (!id) {
-        return res.status(400).json({ message: "Movie Id is required" });
+        return res.status(400).json({ message: "User Id is required" });
     }
 
     try {
         const query = await Usermodel.findOne({ _id: id });
         if (!query) {
-            return res.status(400).json({ message: "Movie Id is not valid" });
+            return res.status(400).json({ message: "User Id is not valid" });
         }
 
         res.send(query);
@@ -97,12 +97,11 @@ userRouter.get('/get-single', async (req, res) => {
     }
 });
 
-
+// user/search?first_name=Anet
 userRouter.get('/search', async (req, res) => {
 
     try {
         const { first_name } = req.query;
-        // user => user.first_name.toLowerCase().includes(first_name.toLowerCase())
         const searchResults = await Usermodel.find({first_name: first_name});
         return res.send(searchResults);
     }
@@ -114,15 +113,93 @@ userRouter.get('/search', async (req, res) => {
 });
 
 
+
+// Filter
+// user/filter?page=1&size10&domain=Sales&gender=Male&available=
+userRouter.get('/filter', async (req, res) => {
+
+    try {
+        // Get the selected filters from the query parameters
+        const { domain, available, gender, page, size } = req.query;
+
+        const Id = Number(page);
+        const pageSize = Number(size);
+
+        const queryObj = {};
+
+        if (domain) {
+            queryObj.domain = domain
+        }
+
+        if (available) {
+            queryObj.available = available
+        }
+
+        if (gender) {
+            queryObj.gender = gender
+        }
+
+        // Filter the users based on selected filters
+        // {$or: [{domain: domain}, {available: available}] }
+        const filteredUsers = await Usermodel.find(queryObj).limit(pageSize).skip((Id - 1) * pageSize);;
+
+        return res.status(201).send(filteredUsers)
+    }
+
+    catch (error) {
+        console.log(error);
+    }
+});
+
+
 // user/update
-userRouter.patch('/update', async (req, res) => {
-    const { _id, first_name } = req.body
-    const user = await Usermodel.findById(_id)
+userRouter.patch('/update/:userID', async (req, res) => {
+
+    const Id = req.params.userID;
+    const _id = Id;
+    const user = await Usermodel.findById(_id);
+
     console.log(user);
 
+    const { first_name, last_name, email, domain, gender, available } = req.body
     // here I am creating update object with deafult value provided to ensure whole data get updated
     const update = {
         first_name: first_name,
+        last_name: last_name,
+        email: email,
+        domain: domain,
+        gender: gender,
+        available: available,
+    }
+    try {
+        // here I am getting response from a function that hold my all logic  
+        let response = await UpdatedUser(user, update)
+        return res.status(201).send(response)
+
+    } catch (error) {
+        return res.status(401).send(error);
+    }
+})
+
+
+// user/update
+userRouter.patch('/update/:userID', async (req, res) => {
+
+    const Id = req.params.userID;
+    const _id = Id;
+    const user = await Usermodel.findById(_id);
+
+    console.log(user);
+
+    const { first_name, last_name, email, gender, domain, available } = req.body
+    // here I am creating update object with deafult value provided to ensure whole data get updated
+    const update = {
+        first_name: first_name,
+        last_name: last_name,
+        email: email,
+        gender: gender,
+        domain: domain,
+        available: available,
     }
     try {
         // here I am getting response from a function that hold my all logic  
@@ -145,7 +222,7 @@ userRouter.delete("/delete/:userID", async (req, res) => {
 
     try {
         const query = await Usermodel.findByIdAndDelete({ _id: Id });
-        res.send("Movie deleted successfully");
+        res.send("User deleted successfully");
     }
     catch (err) {
         res.send("Something error in Delete Method")
@@ -154,6 +231,4 @@ userRouter.delete("/delete/:userID", async (req, res) => {
 })
 
 module.exports = { userRouter };
-
-
 

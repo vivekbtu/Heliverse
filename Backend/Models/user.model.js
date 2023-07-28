@@ -15,6 +15,3 @@ const userSchema = mongoose.Schema({
 const Usermodel = mongoose.model("dummies", userSchema)
 
 module.exports = { Usermodel };
-
-
-
